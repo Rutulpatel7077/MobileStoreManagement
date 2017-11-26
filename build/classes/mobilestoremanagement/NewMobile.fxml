@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" accessibleText="efsadf" prefHeight="622.0" prefWidth="836.0" stylesheets="@Mobilecss.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mobilestoremanagement.NewMobileController">
+   <children>
+      <ImageView fx:id="mobileImage" fitHeight="310.0" fitWidth="249.0" layoutX="555.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane layoutX="63.0" layoutY="53.0" prefHeight="206.0" prefWidth="470.0" AnchorPane.bottomAnchor="301.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="247.0" minWidth="10.0" prefWidth="109.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="425.0" minWidth="10.0" prefWidth="361.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ComboBox fx:id="makeComboBox" prefHeight="25.0" prefWidth="214.0" GridPane.columnIndex="1" />
+            <Label text="Make" />
+            <Label text="Operating System" GridPane.rowIndex="1" />
+            <Label text="Model" GridPane.rowIndex="2" />
+            <ComboBox fx:id="osComboBox" prefHeight="25.0" prefWidth="214.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Color" GridPane.rowIndex="3" />
+            <Label text="Purchase Price" GridPane.rowIndex="4" />
+            <ComboBox fx:id="colorComboBox" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="modelTextField" prefHeight="25.0" prefWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="purchasePriceTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         </children>
+         <opaqueInsets>
+            <Insets right="25.0" />
+         </opaqueInsets>
+      </GridPane>
+      <GridPane layoutX="63.0" layoutY="321.0" prefHeight="193.0" prefWidth="375.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="113.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="269.0" minWidth="10.0" prefWidth="262.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="17.0" prefWidth="72.0" text="RAM (GB)" />
+            <Label text="Storage (GB)" GridPane.rowIndex="1" />
+            <Label text="WebSite" GridPane.rowIndex="3" />
+            <Label text="IMEI" GridPane.rowIndex="2" />
+            <TextField fx:id="imeiTextField" prefHeight="25.0" prefWidth="217.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="ramComboBox" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" />
+            <TextField fx:id="websiteTextField" promptText="https://" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="storageComboBox" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Button fx:id="addMobileButton" layoutX="533.0" layoutY="465.0" mnemonicParsing="false" onAction="#addMobileButtonPushed" prefHeight="25.0" prefWidth="125.0" text="Add Mobile" />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="692.0" layoutY="465.0" mnemonicParsing="false" onAction="#cancelButtonPushed" prefHeight="25.0" prefWidth="125.0" text="Cancel" />
+      <Label fx:id="errorLabel" layoutX="63.0" layoutY="527.0" prefHeight="17.0" prefWidth="470.0" text="* Eroors will come here" textFill="#fc1111" />
+      <Button fx:id="uploadImageButton" layoutX="533.0" layoutY="405.0" mnemonicParsing="false" onAction="#uploadImageButtonPushed" prefHeight="25.0" prefWidth="125.0" text="Upload Image" />
+      <Label layoutX="63.0" layoutY="26.0" text="ADD " textFill="#3c3838">
+         <font>
+            <Font name="Arial" size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="93.0" fitWidth="345.0" layoutX="282.0" layoutY="544.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@store.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="589.0" layoutY="382.0" text="*Upload new phone Image here" textFill="#252020" />
+      <Label layoutX="135.0" layoutY="26.0" text="MOBILE" textFill="#ff1f2a">
+         <font>
+            <Font name="Arial Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="257.0" layoutY="21.0" text="FORM">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="106.0" fitWidth="117.0" layoutX="321.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/defaultImage.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
