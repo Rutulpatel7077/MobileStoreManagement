@@ -182,10 +182,10 @@ public class MobileStoreManagementController implements Initializable {
      * This method will update all the labels and inventory information
      */
     public void updateInventoryLabels() {
-        totalInvestment.setText(String.format("Total Investment in Store: $%.2f", mobileInventory.getTotalInvestment()));
-        profit.setText(String.format("Total Profit from Sales: $%.2f", mobileInventory.getProfit()));
+        totalInvestment.setText(String.format("Total Investment in Store:"+ java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getTotalInvestment())));
+        profit.setText(String.format("Total Profit from Sales:"+ java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getProfit())));
         totalMobile.setText(String.format("Number of Mobiles in Store: %d", mobileInventory.getNumberOfMobileInStock()));
-        totalSales.setText(String.format("Total Sales: $%.2f", mobileInventory.getTotalSales()));
+        totalSales.setText(String.format("Total Sales:"+java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getTotalSales())));
         soldMobile.setText(String.format("Number of Mobiles Sold: %d", mobileInventory.getNumberOfMobileSold()));
 
     }
