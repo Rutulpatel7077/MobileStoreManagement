@@ -72,19 +72,22 @@ public class NewMobileController implements Initializable {
     private Label errorLabel;
     @FXML
     private ImageView mobileImage;
-/**
- * Initial data from Observable List
- * @param mobileInventory 
- */
+
+    /**
+     * Initial data from Observable List
+     *
+     * @param mobileInventory
+     */
     public void initData(MobileInventory mobileInventory) {
         this.mobileInventory = mobileInventory;
     }
-/**
- * This method will validate inputs and add mobile into observable list
- * 
- * @param event
- * @throws IOException 
- */
+
+    /**
+     * This method will validate inputs and add mobile into observable list
+     *
+     * @param event
+     * @throws IOException
+     */
     public void addMobileButtonPushed(ActionEvent event) throws IOException {
 
         if (makeComboBox.getSelectionModel().isEmpty()) {
@@ -133,11 +136,13 @@ public class NewMobileController implements Initializable {
         }
 
     } // end of addMobile Class
-/**
- * This method will allow users to upload image from the external storage
- * Got some idea from Jaret Wright Code to make this method
- * @param event 
- */
+
+    /**
+     * This method will allow users to upload image from the external storage
+     * Got some idea from Jaret Wright Code to make this method
+     *
+     * @param event
+     */
     public void uploadImageButtonPushed(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -145,17 +150,18 @@ public class NewMobileController implements Initializable {
         fileChooser.setTitle("Select Image");
         FileChooser.ExtensionFilter extentionFilterJPG = new FileChooser.ExtensionFilter("Image files (*.jpg)", "*.jpg");
         FileChooser.ExtensionFilter extentionFilterPNG = new FileChooser.ExtensionFilter("Image files (*.png)", "*.png");
-        fileChooser.getExtensionFilters().addAll(extentionFilterPNG, extentionFilterJPG);
-        
+
+        FileChooser.ExtensionFilter extentionFilterAll = new FileChooser.ExtensionFilter("Image files (*.ALL)", "*.png", "*jpeg", "*jpg");
+
+        fileChooser.getExtensionFilters().addAll(extentionFilterPNG, extentionFilterJPG, extentionFilterAll);
+
         String userDirectoryString = System.getProperty("user.home") + "\\Pictures";
         File userDirectory = new File(userDirectoryString);
-
         if (!userDirectory.canRead()) {
             userDirectory = new File("c:/");
         }
         fileChooser.setInitialDirectory(userDirectory);
         this.filePath = fileChooser.showOpenDialog(stage);
-
         try {
             BufferedImage bufferedImage = ImageIO.read(filePath);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -164,11 +170,14 @@ public class NewMobileController implements Initializable {
             errorLabel.setText(e.getMessage());
         }
     }
-/**
- * This method will cancel everything and change scene return to MobileStoreManagement.fxml
- * @param event
- * @throws IOException 
- */
+
+    /**
+     * This method will cancel everything and change scene return to
+     * MobileStoreManagement.fxml
+     *
+     * @param event
+     * @throws IOException
+     */
     public void cancelButtonPushed(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("MobileStoreManagement.fxml"));
