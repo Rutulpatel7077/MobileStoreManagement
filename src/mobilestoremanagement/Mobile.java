@@ -284,5 +284,4 @@ public final class Mobile {
         Collections.sort(validRamOption);
         return validRamOption;
     }
-
 }// End of Class

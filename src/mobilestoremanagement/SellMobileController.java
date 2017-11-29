@@ -28,6 +28,7 @@ import javafx.stage.Stage;
  */
 public class SellMobileController implements Initializable {
 //Adding TextField and Imageview
+
     @FXML
     private TextField purchasePriceTextField;
     @FXML
@@ -70,12 +71,15 @@ public class SellMobileController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-/**
- * This method will take all data from the mobileStoreTableview and preview on new Form
- * and put focus on Selling Price to change it from 0.0 to which user want.
- * @param mobile
- * @param mobileInventory 
- */
+
+    /**
+     * This method will take all data from the mobileStoreTableview and preview
+     * on new Form and put focus on Selling Price to change it from 0.0 to which
+     * user want.
+     *
+     * @param mobile
+     * @param mobileInventory
+     */
     public void initData(Mobile mobile, MobileInventory mobileInventory) {
         this.mobile = mobile;
         this.mobileInventory = mobileInventory;
@@ -97,13 +101,15 @@ public class SellMobileController implements Initializable {
         sellingPriceTextField.requestFocus();
 
     }
-/**
- * This method will sell the mobile
- * This method  will validate selling price and remove mobile from the main observable list
- * as well as add in sold mobile list and change the screen
- * @param event
- * @throws IOException 
- */
+
+    /**
+     * This method will sell the mobile This method will validate selling price
+     * and remove mobile from the main observable list as well as add in sold
+     * mobile list and change the screen
+     *
+     * @param event
+     * @throws IOException
+     */
     public void mobileSoldButtonPushed(ActionEvent event) throws IOException {
         try {
 
@@ -127,11 +133,14 @@ public class SellMobileController implements Initializable {
             errorLabel.setText(e.getMessage());
         }
     }
-/**
- * This method will avoid all things and close the scene and change it to mobile store controller
- * @param event
- * @throws IOException 
- */
+
+    /**
+     * This method will avoid all things and close the scene and change it to
+     * mobile store controller
+     *
+     * @param event
+     * @throws IOException
+     */
     public void cancelButtonPushed(ActionEvent event) throws IOException {
         mobileInventory.addMobile(mobile);
 

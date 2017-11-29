@@ -40,7 +40,7 @@ public class MobileStoreManagementController implements Initializable {
 
     private MobileInventory mobileInventory;
     private Mobile mobile;
-    
+
 // adding Buttons
     @FXML
     private Button addMobile;
@@ -50,7 +50,7 @@ public class MobileStoreManagementController implements Initializable {
     private Button exitButton;
     @FXML
     private Button viewButton;
-    
+
 //Adding tableview and table columns
     @FXML
     private TableView<Mobile> mobileStoreView;
@@ -66,7 +66,7 @@ public class MobileStoreManagementController implements Initializable {
     private TableColumn<Mobile, Double> purchasePriceColumn;
     @FXML
     private TableColumn<Mobile, Double> sellingPriceColumn;
-    
+
 //adding lables
     @FXML
     private Label totalInvestment;
@@ -82,20 +82,23 @@ public class MobileStoreManagementController implements Initializable {
     private Label errorLabel;
 
     /**
-     * This method contains all initial data which we needs every time when we refresh table view
-     * @param mobileInventory 
+     * This method contains all initial data which we needs every time when we
+     * refresh table view
+     *
+     * @param mobileInventory
      */
     public void initialData(MobileInventory mobileInventory) {
         this.mobileInventory = mobileInventory;
         mobileStoreView.setItems(mobileInventory.getInventory());
-
         updateInventoryLabels();
-
     }
+
     /**
-     * This method has all the dummy data for our store. And this method will return dummy data
+     * This method has all the dummy data for our store. And this method will
+     * return dummy data
+     *
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public ObservableList<Mobile> getMobiles() throws IOException {
         mobileInventory = new MobileInventory();
@@ -106,13 +109,15 @@ public class MobileStoreManagementController implements Initializable {
         return mobileInventory.getInventory();
 
     }
-/**
- * This Action Event will add new mobile in our observable list 
- * this method will change the scene to NewMobile.fxml
- * This method will also have controllers of New Mobile Controller class
- * @param event
- * @throws IOException 
- */
+
+    /**
+     * This Action Event will add new mobile in our observable list this method
+     * will change the scene to NewMobile.fxml This method will also have
+     * controllers of New Mobile Controller class
+     *
+     * @param event
+     * @throws IOException
+     */
     public void newMobileButtonPushed(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("NewMobile.fxml"));
@@ -130,25 +135,26 @@ public class MobileStoreManagementController implements Initializable {
 
     /**
      * This method will get image of S8 for dummy data
+     *
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public Image getImageS8() throws IOException {
         BufferedImage bufferedImage = ImageIO.read(new File("./src/images/s8.png"));
         Image s8 = SwingFXUtils.toFXImage(bufferedImage, null);
         return s8;
-
     }
+
     /**
-     * This method will get image of  G6 for dummy data
+     * This method will get image of G6 for dummy data
+     *
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public Image getImageg6() throws IOException {
         BufferedImage bufferedImage = ImageIO.read(new File("./src/images/g6.png"));
         Image g6 = SwingFXUtils.toFXImage(bufferedImage, null);
         return g6;
-
     }
 
     /**
@@ -168,32 +174,31 @@ public class MobileStoreManagementController implements Initializable {
             osColumn.setCellValueFactory(new PropertyValueFactory<Mobile, String>("operatingSystem"));;
             purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<Mobile, Double>("purchasePrice"));
             sellingPriceColumn.setCellValueFactory(new PropertyValueFactory<Mobile, Double>("sellingPrice"));
-
             mobileStoreView.setItems(getMobiles());
 
         } catch (IOException ex) {
-
             Logger.getLogger(MobileStoreManagementController.class.getName()).log(Level.SEVERE, null, ex);
             errorLabel.setText(ex.getMessage());
         }
-
     }
+
     /**
      * This method will update all the labels and inventory information
      */
     public void updateInventoryLabels() {
-        totalInvestment.setText(String.format("Total Investment in Store:"+ java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getTotalInvestment())));
-        profit.setText(String.format("Total Profit from Sales:"+ java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getProfit())));
+        totalInvestment.setText(String.format("Total Investment in Store:" + java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getTotalInvestment())));
+        profit.setText(String.format("Total Profit from Sales:" + java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getProfit())));
         totalMobile.setText(String.format("Number of Mobiles in Store: %d", mobileInventory.getNumberOfMobileInStock()));
-        totalSales.setText(String.format("Total Sales:"+java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getTotalSales())));
+        totalSales.setText(String.format("Total Sales:" + java.text.NumberFormat.getCurrencyInstance().format(mobileInventory.getTotalSales())));
         soldMobile.setText(String.format("Number of Mobiles Sold: %d", mobileInventory.getNumberOfMobileSold()));
-
     }
+
     /**
-     * This method will change scene to selling mobile 
-     * this method will change the scene to sellMobile.fxml
+     * This method will change scene to selling mobile this method will change
+     * the scene to sellMobile.fxml
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     public void sellMobileButtonPushed(ActionEvent event) throws IOException {
         try {
@@ -217,10 +222,12 @@ public class MobileStoreManagementController implements Initializable {
             errorLabel.setText("Please select mobile");
         }
     }
-/**
- * This method will close and exit the program. 
- * @param event 
- */
+
+    /**
+     * This method will close and exit the program.
+     *
+     * @param event
+     */
     public void closeButtonAction(ActionEvent event) {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.close();
