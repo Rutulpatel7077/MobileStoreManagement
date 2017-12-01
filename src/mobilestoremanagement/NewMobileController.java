@@ -5,6 +5,7 @@
  */
 package mobilestoremanagement;
 
+import models.Mobile;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -34,14 +35,14 @@ import javafx.scene.control.TextField;
  * @author Rutul
  */
 public class NewMobileController implements Initializable {
- int r;
+
+    int r;
     MobileInventory mobileInventory;
     Mobile mobile;
     private Image image;
     private FileChooser fileChooser;
     private File filePath;
-    
-    
+
 // Adding Comboboxes and textfield
     @FXML
     private ComboBox makeComboBox;
@@ -62,8 +63,7 @@ public class NewMobileController implements Initializable {
     private TextField imeiTextField;
     @FXML
     private TextField websiteTextField;
-    
-    
+
 // Adding Buttons
     @FXML
     private Button uploadImageButton;
@@ -71,8 +71,7 @@ public class NewMobileController implements Initializable {
     private Button addMobileButton;
     @FXML
     private Button cancelButton;
-    
-    
+
 //Adding labels and ImageView
     @FXML
     private Label errorLabel;
@@ -114,13 +113,13 @@ public class NewMobileController implements Initializable {
             errorLabel.setText("Please type IMEI number");
         } else if (websiteTextField.getText().isEmpty()) {
             errorLabel.setText("Please enter your mobile website");
-        } else if(!purchasePriceTextField.getText().matches( "[0-9]+([,.][0-9]{1,2})?")){
+        } else if (!purchasePriceTextField.getText().matches("[0-9]+([,.][0-9]{1,2})?")) {
             errorLabel.setText("Please enter only numbers in price field");
-        }else if(!imeiTextField.getText().matches("[0-9]*")){
-            errorLabel.setText("Please enter only numbers in IMEI number");       
-        }else if(!websiteTextField.getText().matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"))
+        } else if (!imeiTextField.getText().matches("[0-9]*")) {
+            errorLabel.setText("Please enter only numbers in IMEI number");
+        } else if (!websiteTextField.getText().matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]")) {
             errorLabel.setText("Please enter valid URL of Website");
-        else {
+        } else {
 
             try {
 
@@ -143,7 +142,7 @@ public class NewMobileController implements Initializable {
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(scene);
                 window.show();
-                 
+
             } catch (IllegalArgumentException e) {
                 errorLabel.setText(e.getMessage());
             }
@@ -208,7 +207,6 @@ public class NewMobileController implements Initializable {
         window.show();
     }
 
-
     /**
      * Initializes the controller class.
      */
@@ -216,12 +214,10 @@ public class NewMobileController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
-        makeComboBox.getItems().addAll(Mobile.getValidMobileMakers());       
+        makeComboBox.getItems().addAll(Mobile.getValidMobileMakers());
         osComboBox.getItems().addAll(Mobile.getValidOperatingSystems());
         colorComboBox.getItems().addAll(Mobile.getValidColors());
-        
-        
-      
+
         storageComboBox.getItems().addAll(Mobile.getValidStorageOptions());
         ramComboBox.getItems().addAll(Mobile.getValidRamOptions());
         errorLabel.setText("");

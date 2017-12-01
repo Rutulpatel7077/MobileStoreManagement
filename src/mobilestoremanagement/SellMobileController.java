@@ -5,6 +5,7 @@
  */
 package mobilestoremanagement;
 
+import models.Mobile;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -139,7 +140,6 @@ public class SellMobileController implements Initializable {
     /**
      * This method will avoid all things and close the scene and change it to
      * mobile store controller
-     *
      * @param event
      * @throws IOException
      */

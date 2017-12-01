@@ -5,6 +5,7 @@
  */
 package mobilestoremanagement;
 
+import models.Mobile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
