@@ -60,8 +60,8 @@ public class MobileInventory {
      */
     public int getNumberOfMobileInStock() {
         int totalMobiles = 0;
-        for (Mobile mobiles : mobileInventory) {
-            if (mobiles.getSellingPrice() == 0.0) {
+        for (Mobile mobile : mobileInventory) {
+            if (mobile.getSellingPrice()==0.0) {
                 totalMobiles++;
             }
         }
