@@ -111,8 +111,9 @@ public class SellMobileController implements Initializable {
      * @throws IOException
      */
     public void mobileSoldButtonPushed(ActionEvent event) throws IOException {
+        
         try {
-
+      
             mobile.setSellingPrice(Double.parseDouble(sellingPriceTextField.getText()));
             mobileInventory.addMobile(mobile);
 
@@ -130,9 +131,10 @@ public class SellMobileController implements Initializable {
             window.show();
 
         } catch (IllegalArgumentException e) {
-            errorLabel.setText(e.getMessage());
+            errorLabel.setText("Please enter valid price and positive numbers only");
         }
     }
+   
 
     /**
      * This method will avoid all things and close the scene and change it to

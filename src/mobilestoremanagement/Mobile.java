@@ -184,7 +184,7 @@ public final class Mobile {
     public void setSellingPrice(double sellingPrice) {
         if (sellingPrice < 0) {
             throw new IllegalArgumentException("Selling price should be greater than zero");
-        } else if (" ".equals(Double.toString(sellingPrice))) {
+        } else if ((Double.toString(sellingPrice)).isEmpty()) {
             throw new IllegalArgumentException("Please insert selling price");
         } else {
             this.sellingPrice = sellingPrice;
@@ -202,7 +202,7 @@ public final class Mobile {
  * @param mobileIMEI 
  */
     public void setMobileIMEI(long mobileIMEI) {
-        if (mobileIMEI > 1000000000) {
+        if (mobileIMEI > 100000000) {
             this.mobileIMEI = mobileIMEI;
         } else if (mobileIMEI == Long.parseLong("")) {
             throw new IllegalArgumentException("IMEI should not empty");

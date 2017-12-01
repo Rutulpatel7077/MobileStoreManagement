@@ -62,7 +62,7 @@
             <Label text="IMEI" GridPane.rowIndex="2" />
             <TextField fx:id="imeiTextField" prefHeight="25.0" prefWidth="217.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ComboBox fx:id="ramComboBox" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" />
-            <TextField fx:id="websiteTextField" promptText="https://" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="websiteTextField" promptText="https://example.com" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ComboBox fx:id="storageComboBox" prefHeight="25.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
