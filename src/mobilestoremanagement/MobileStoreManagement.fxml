@@ -69,6 +69,6 @@
          </children>
       </GridPane>
       <Label layoutX="599.0" layoutY="600.0" text="© Copyright Rutul Patel - The Mobile Store" />
-      <Label fx:id="errorLabel" layoutX="73.0" layoutY="574.0" text="*Errors" />
+      <Label fx:id="errorLabel" layoutX="73.0" layoutY="574.0" text="*Errors" textFill="#eb0909" />
    </children>
 </AnchorPane>
