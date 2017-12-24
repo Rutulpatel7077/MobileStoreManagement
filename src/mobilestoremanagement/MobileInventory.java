@@ -5,6 +5,7 @@
  */
 package mobilestoremanagement;
 
+import java.sql.SQLException;
 import models.Mobile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,13 +18,14 @@ public class MobileInventory {
 
     // Observable list to store Mobile Inventory 
     private final ObservableList<Mobile> mobileInventory = FXCollections.observableArrayList();
-
+    
     /**
      * This method will return you MobileInventory Observable list.
      *
      * @return
      */
-    public ObservableList<Mobile> getInventory() {
+    public ObservableList<Mobile> getInventory() throws SQLException {
+
         return mobileInventory;
     }
 

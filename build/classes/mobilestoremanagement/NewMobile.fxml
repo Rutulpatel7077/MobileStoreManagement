@@ -69,7 +69,7 @@
       <Button fx:id="addMobileButton" layoutX="533.0" layoutY="465.0" mnemonicParsing="false" onAction="#addMobileButtonPushed" prefHeight="25.0" prefWidth="125.0" text="Add Mobile" />
       <Button fx:id="cancelButton" cancelButton="true" layoutX="692.0" layoutY="465.0" mnemonicParsing="false" onAction="#cancelButtonPushed" prefHeight="25.0" prefWidth="125.0" text="Cancel" />
       <Label fx:id="errorLabel" layoutX="63.0" layoutY="527.0" prefHeight="17.0" prefWidth="470.0" text="* Eroors will come here" textFill="#fc1111" />
-      <Button fx:id="uploadImageButton" layoutX="533.0" layoutY="405.0" mnemonicParsing="false" onAction="#uploadImageButtonPushed" prefHeight="25.0" prefWidth="125.0" text="Upload Image" />
+      <Button fx:id="uploadImageButton" layoutX="533.0" layoutY="405.0" mnemonicParsing="false" onAction="#chooseImageButtonPushed" prefHeight="25.0" prefWidth="125.0" text="Upload Image" />
       <Label layoutX="63.0" layoutY="26.0" text="ADD " textFill="#3c3838">
          <font>
             <Font name="Arial" size="30.0" />

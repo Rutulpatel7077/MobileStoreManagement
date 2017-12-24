@@ -10,15 +10,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,6 +31,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javafx.scene.control.TextField;
+import models.ConnectionPassword;
 
 /**
  * FXML Controller class
@@ -39,9 +43,8 @@ public class NewMobileController implements Initializable {
     int r;
     MobileInventory mobileInventory;
     Mobile mobile;
-    private Image image;
-    private FileChooser fileChooser;
-    private File filePath;
+    
+    private File imageFile;
 
 // Adding Comboboxes and textfield
     @FXML
@@ -93,7 +96,7 @@ public class NewMobileController implements Initializable {
      * @param event
      * @throws IOException
      */
-    public void addMobileButtonPushed(ActionEvent event) throws IOException {
+    public void addMobileButtonPushed(ActionEvent event) throws IOException, SQLException {
 
         if (makeComboBox.getSelectionModel().isEmpty()) {
             errorLabel.setText("Please set your phone make company");
@@ -126,22 +129,13 @@ public class NewMobileController implements Initializable {
                 Mobile newMobile = new Mobile((String) modelTextField.getText(), (String) colorComboBox.getValue(),
                         (String) makeComboBox.getValue(), (String) osComboBox.getValue(),
                         Double.parseDouble(purchasePriceTextField.getText()), (String) ramComboBox.getValue(), (String) storageComboBox.getValue(),
-                        Long.parseLong(imeiTextField.getText()), (String) websiteTextField.getText(), mobileImage.getImage());
-
-                mobileInventory.addMobile(newMobile);
-
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("MobileStoreManagement.fxml"));
-                Parent parent = loader.load();
-
-                Scene scene = new Scene(parent);
-
-                MobileStoreManagementController controller = loader.getController();
-                controller.initialData(mobileInventory);
-
-                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                window.setScene(scene);
-                window.show();
+                        Long.parseLong(imeiTextField.getText()), (String) websiteTextField.getText(),imageFile,LocalDate.now() );
+              
+                    newMobile.insertIntoDB();
+                   
+               
+                SceneChanger sc = new SceneChanger();
+                sc.changeScenes(event, "MobileStoreManagement.fxml", "Mobile Store");
 
             } catch (IllegalArgumentException e) {
                 errorLabel.setText(e.getMessage());
@@ -151,37 +145,58 @@ public class NewMobileController implements Initializable {
     } // end of addMobile Class
 
     /**
-     * This method will allow users to upload image from the external storage
-     * Got some idea from Jaret Wright Code to make this method
-     *
-     * @param event
+     * When this button is pushed, a FileChooser object is launched to allow the user
+     * to browse for a new image file.  When that is complete, it will update the 
+     * view with a new image
      */
-    public void uploadImageButtonPushed(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image");
-        FileChooser.ExtensionFilter extentionFilterJPG = new FileChooser.ExtensionFilter("Image files (*.jpg)", "*.jpg");
-        FileChooser.ExtensionFilter extentionFilterPNG = new FileChooser.ExtensionFilter("Image files (*.png)", "*.png");
-
-        FileChooser.ExtensionFilter extentionFilterAll = new FileChooser.ExtensionFilter("Image files (*.ALL)", "*.png", "*jpeg", "*jpg");
-
-        fileChooser.getExtensionFilters().addAll(extentionFilterPNG, extentionFilterJPG, extentionFilterAll);
-
-        String userDirectoryString = System.getProperty("user.home") + "\\Pictures";
+    public void chooseImageButtonPushed(ActionEvent event)
+    {
+        //get the Stage to open a new window (or Stage in JavaFX)
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        //Instantiate a FileChooser object
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Image");
+        
+        //filter for .jpg and .png
+        FileChooser.ExtensionFilter jpgFilter = new FileChooser.ExtensionFilter("Image File (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter pngFilter = new FileChooser.ExtensionFilter("Image File (*.png)", "*.png");
+        fileChooser.getExtensionFilters().addAll(jpgFilter, pngFilter);
+        
+        //Set to the user's picture directory or user directory if not available
+        String userDirectoryString = System.getProperty("user.home")+"\\Pictures";
         File userDirectory = new File(userDirectoryString);
-        if (!userDirectory.canRead()) {
-            userDirectory = new File("c:/");
-        }
+        
+        //if you cannot navigate to the pictures directory, go to the user home
+        if (!userDirectory.canRead())
+            userDirectory = new File(System.getProperty("user.home"));
+        
         fileChooser.setInitialDirectory(userDirectory);
-        this.filePath = fileChooser.showOpenDialog(stage);
-        try {
-            BufferedImage bufferedImage = ImageIO.read(filePath);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            mobileImage.setImage(image);
-        } catch (IOException e) {
-            errorLabel.setText(e.getMessage());
+        
+        //open the file dialog window
+        File tmpImageFile = fileChooser.showOpenDialog(stage);
+        
+        if (tmpImageFile != null)
+        {
+            imageFile = tmpImageFile;
+        
+            //update the ImageView with the new image
+            if (imageFile.isFile())
+            {
+                try
+                {
+                    BufferedImage bufferedImage = ImageIO.read(imageFile);
+                    Image img = SwingFXUtils.toFXImage(bufferedImage, null);
+                    mobileImage.setImage(img);
+                   
+                }
+                catch (IOException e)
+                {
+                    System.err.println(e.getMessage());
+                }
+            }
         }
+        
     }
 
     /**
@@ -191,20 +206,9 @@ public class NewMobileController implements Initializable {
      * @param event
      * @throws IOException
      */
-    public void cancelButtonPushed(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("MobileStoreManagement.fxml"));
-        Parent parent = loader.load();
-
-        Scene scene = new Scene(parent);
-
-        MobileStoreManagementController controller = loader.getController();
-        controller.initialData(mobileInventory);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(scene);
-        window.show();
+    public void cancelButtonPushed(ActionEvent event) throws IOException, SQLException {
+        SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "MobileStoreManagement.fxml", "Mobile");
     }
 
     /**
@@ -222,13 +226,22 @@ public class NewMobileController implements Initializable {
         ramComboBox.getItems().addAll(Mobile.getValidRamOptions());
         errorLabel.setText("");
 
-        try {
-            BufferedImage bufferedImage = ImageIO.read(new File("./src/images/defaultImage.png"));
-            image = SwingFXUtils.toFXImage(bufferedImage, null);
+         //load the defautl image for the avatar
+        try{
+            imageFile = new File("./src/images/defaultImage.png");
+            BufferedImage bufferedImage = ImageIO.read(imageFile);
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             mobileImage.setImage(image);
-        } catch (IOException e) {
-            errorLabel.setText(e.getMessage());
+            
         }
-    }
+        catch (IOException e)
+        {
+            System.err.println(e.getMessage());
+        }
 
+    }
+      
+
+    
+    
 } // End of class

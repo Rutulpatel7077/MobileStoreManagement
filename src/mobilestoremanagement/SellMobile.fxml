@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -27,6 +28,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Make" GridPane.rowIndex="1" />
@@ -47,6 +50,10 @@
             <Label text="Website" GridPane.rowIndex="8" />
             <Label text="Item Number" />
             <TextField fx:id="itemNumberTextField" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="purchasePriceTextField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="Purchase Price" GridPane.rowIndex="9" />
+            <Label text="Date In Stock" GridPane.rowIndex="10" />
+            <DatePicker fx:id="dateInStock" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          </children>
       </GridPane>
       <ImageView fitHeight="76.0" fitWidth="221.0" layoutX="320.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -55,7 +62,7 @@
          </image>
       </ImageView>
       <ImageView fx:id="mobileImage" fitHeight="331.0" fitWidth="258.0" layoutX="485.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
-      <GridPane layoutX="172.0" layoutY="427.0" prefHeight="106.0" prefWidth="369.0">
+      <GridPane layoutX="172.0" layoutY="464.0" prefHeight="106.0" prefWidth="369.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="179.0" minWidth="10.0" prefWidth="96.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="273.0" />
@@ -65,10 +72,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Purchase Price" />
             <Label text="Selling Price" GridPane.rowIndex="1" />
-            <TextField fx:id="purchasePriceTextField" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="sellingPriceTextField" prefHeight="0.0" prefWidth="140.0" promptText="Please enter selling price" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dateOfSelling" GridPane.columnIndex="1" />
+            <Label text="Date Of Selling" />
          </children>
       </GridPane>
       <Button fx:id="sellButton" layoutX="635.0" layoutY="460.0" mnemonicParsing="false" onAction="#mobileSoldButtonPushed" prefHeight="32.0" prefWidth="121.0" text="Sell mobile" />
