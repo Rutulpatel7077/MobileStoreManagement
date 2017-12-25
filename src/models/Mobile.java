@@ -5,7 +5,6 @@
  */
 package models;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -60,13 +59,12 @@ public final class Mobile {
         setSellingPrice(sellingPrice);
         setMobileImage(new File("./src/images/defaultImage.png"));
         setDateInStock(dateInStock);
-       
+
         setSold(sold);
-        
 
     }
 
-    public Mobile(String model, String color, String make, String operatingSystem, double purchasePrice, String ram, String storage, long IMEI, String website,File image, LocalDate dateOfSelling) throws IOException {
+    public Mobile(String model, String color, String make, String operatingSystem, double purchasePrice, String ram, String storage, long IMEI, String website, File image, LocalDate dateOfSelling) throws IOException {
 
         this(model, color, make, operatingSystem, purchasePrice);
         this.ram = Integer.parseInt(ram);
@@ -190,106 +188,100 @@ public final class Mobile {
     public void setMobileImage(File mobileImage) {
         this.mobileImage = mobileImage;
     }
-    
+
     /**
-     * This method will copy the file specified to the images directory on this server and give it 
-     * a unique name
+     * This method will copy the file specified to the images directory on this
+     * server and give it a unique name
+     *
      * @throws java.io.IOException
      */
-    public void copyImageFile() throws IOException
-    {
+    public void copyImageFile() throws IOException {
         //create a new Path to copy the image into a local directory
         Path sourcePath = mobileImage.toPath();
-        
+
         String uniqueFileName = getUniqueFileName(mobileImage.getName());
-        
-        Path targetPath = Paths.get("./src/images/"+uniqueFileName);
-        
+
+        Path targetPath = Paths.get("./src/images/" + uniqueFileName);
+
         //copy the file to the new directory
         Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-        
+
         //update the imageFile to point to the new File
         mobileImage = new File(targetPath.toString());
     }
-    
-    
-    
+
     /**
-     * This method will receive a String that represents a file name and return a
-     * String with a random, unique set of letters prefixed to it
+     * This method will receive a String that represents a file name and return
+     * a String with a random, unique set of letters prefixed to it
      */
-    private String getUniqueFileName(String oldFileName)
-    {
+    private String getUniqueFileName(String oldFileName) {
         String newName;
-        
+
         //create a Random Number Generator
         SecureRandom rng = new SecureRandom();
-        
+
         //loop until we have a unique file name
-        do
-        {
+        do {
             newName = "";
-            
+
             //generate 32 random characters
-            for (int count=1; count <=32; count++)
-            {
+            for (int count = 1; count <= 32; count++) {
                 int nextChar;
-                
-                do
-                {
+
+                do {
                     nextChar = rng.nextInt(123);
-                } while(!validCharacterValue(nextChar));
-                
+                } while (!validCharacterValue(nextChar));
+
                 newName = String.format("%s%c", newName, nextChar);
             }
             newName += oldFileName;
-            
+
         } while (!uniqueFileInDirectory(newName));
-        
+
         return newName;
     }
-    
-    
-    
+
     /**
-     * This method will search the images directory and ensure that the file name
-     * is unique
+     * This method will search the images directory and ensure that the file
+     * name is unique
      */
-    public boolean uniqueFileInDirectory(String fileName)
-    {
+    public boolean uniqueFileInDirectory(String fileName) {
         File directory = new File("./src/images/");
-        
+
         File[] dir_contents = directory.listFiles();
-                
-        for (File file: dir_contents)
-        {
-            if (file.getName().equals(fileName))
+
+        for (File file : dir_contents) {
+            if (file.getName().equals(fileName)) {
                 return false;
+            }
         }
         return true;
     }
-    
+
     /**
      * This method will validate if the integer given corresponds to a valid
      * ASCII character that could be used in a file name
+     *
      * @param asciiValue
-     * @return 
+     * @return
      */
-    public boolean validCharacterValue(int asciiValue)
-    {
-        
+    public boolean validCharacterValue(int asciiValue) {
+
         //0-9 = ASCII range 48 to 57
-        if (asciiValue >= 48 && asciiValue <= 57)
+        if (asciiValue >= 48 && asciiValue <= 57) {
             return true;
-        
+        }
+
         //A-Z = ASCII range 65 to 90
-        if (asciiValue >= 65 && asciiValue <= 90)
+        if (asciiValue >= 65 && asciiValue <= 90) {
             return true;
-        
+        }
+
         //a-z = ASCII range 97 to 122
-        if (asciiValue >= 97 && asciiValue <= 122)
+        if (asciiValue >= 97 && asciiValue <= 122) {
             return true;
-        
+        }
+
         return false;
     }
 
@@ -300,14 +292,6 @@ public final class Mobile {
     public void setSold(String sold) {
         this.sold = sold;
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
     /**
      * This method will return purchase price of mobile
@@ -370,10 +354,10 @@ public final class Mobile {
      * @param mobileIMEI
      */
     public void setMobileIMEI(long mobileIMEI) {
-        if (mobileIMEI<0) {
-            throw new IllegalArgumentException("Please double check IMEI number");    
+        if (mobileIMEI < 0) {
+            throw new IllegalArgumentException("Please double check IMEI number");
         } else {
-            this.mobileIMEI = mobileIMEI;    
+            this.mobileIMEI = mobileIMEI;
         }
     }
 
@@ -447,9 +431,6 @@ public final class Mobile {
         this.dateInStock = dateInStock;
     }
 
-    
-    
-    
     // These all methods are for the Drop Down Menus( ComboBox) to get all the details
     public static List<String> getValidMobileMakers() {
         List<String> vaildMobilesMakers = Arrays.asList(mobileMakers);
@@ -489,26 +470,22 @@ public final class Mobile {
         this.salesId = salesId;
     }
 
-    
-   
-    
     /**
-     * Database method
+     * Database methods
      */
-    
-    public void insertIntoDB() throws SQLException{
+    public void insertIntoDB() throws SQLException {
         Connection conn = null;
-        PreparedStatement preparedStatement  = null;
-        
+        PreparedStatement preparedStatement = null;
+
         try {
             conn = DriverManager.getConnection(ConnectionPassword.URL, ConnectionPassword.USERNAME, ConnectionPassword.PASSWORD);
-            
+
             // step 2             
-            String sql = "INSERT INTO mobiles (make, operatingSystem, model , color, imei, ram, storageCapacity, website,  imageFile, purchasePrice , sellingPrice,dateInStock,dateOfSelling,sold)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)" ;
+            String sql = "INSERT INTO mobiles (make, operatingSystem, model , color, imei, ram, storageCapacity, website,  imageFile, purchasePrice , sellingPrice,dateInStock,dateOfSelling,sold)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             //query             
             preparedStatement = conn.prepareStatement(sql);
-            
+
             //bind values into parameter 
             //preparedStatement.setInt(1, stockNumber);
             preparedStatement.setString(1, make);
@@ -519,48 +496,43 @@ public final class Mobile {
             preparedStatement.setInt(6, ram);
             preparedStatement.setInt(7, storage);
             preparedStatement.setString(8, website);
-            preparedStatement.setString(9, mobileImage.toString() );
-            preparedStatement.setDouble(10,(int)  purchasePrice);
+            preparedStatement.setString(9, mobileImage.toString());
+            preparedStatement.setDouble(10, (int) purchasePrice);
             preparedStatement.setDouble(11, (int) sellingPrice);
             preparedStatement.setDate(12, Date.valueOf(dateInStock));
             preparedStatement.setDate(13, Date.valueOf(dateOfSelling));
             preparedStatement.setString(14, sold);
             preparedStatement.executeUpdate();
-            
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
-        }
-        
-        finally{
-            if(preparedStatement != null){
-                preparedStatement.close();    
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
             }
-            if(conn!=null){
+            if (conn != null) {
                 conn.close();
             }
         }
     }
-    
-    
+
     /**
      * Update Database Method
      */
-    
-     public void updateDataBase() throws SQLException{
-         Connection conn = null;
-         PreparedStatement preparedStatement  = null;
-        
+    public void updateDataBase() throws SQLException {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+
         try {
-             conn = DriverManager.getConnection(ConnectionPassword.URL, ConnectionPassword.USERNAME, ConnectionPassword.PASSWORD);
-            
+            conn = DriverManager.getConnection(ConnectionPassword.URL, ConnectionPassword.USERNAME, ConnectionPassword.PASSWORD);
+
             //step 2             
-            String sql = "UPDATE mobiles SET  make=?, operatingSystem=?, model=? , color=?, imei=?, ram=?, storageCapacity=?, website=?,  imageFile=?, purchasePrice=? , sellingPrice=?, dateInStock=?, dateOfSelling=?, sold=? " +"WHERE stockNumber= ?";
+            String sql = "UPDATE mobiles SET  make=?, operatingSystem=?, model=? , color=?, imei=?, ram=?, storageCapacity=?, website=?,  imageFile=?, purchasePrice=? , sellingPrice=?, dateInStock=?, dateOfSelling=?, sold=? " + "WHERE stockNumber= ?";
 
             //query             
             preparedStatement = conn.prepareStatement(sql);
-            
+
             //bind values into parameter 
-           
             preparedStatement.setString(1, make);
             preparedStatement.setString(2, operatingSystem);
             preparedStatement.setString(3, model);
@@ -569,32 +541,27 @@ public final class Mobile {
             preparedStatement.setInt(6, ram);
             preparedStatement.setInt(7, storage);
             preparedStatement.setString(8, website);
-            preparedStatement.setString(9, mobileImage.toString() );
-            preparedStatement.setDouble(10,(int)  purchasePrice);
+            preparedStatement.setString(9, mobileImage.toString());
+            preparedStatement.setDouble(10, (int) purchasePrice);
             preparedStatement.setDouble(11, (int) sellingPrice);
-             preparedStatement.setDate(12, Date.valueOf(dateInStock));
+            preparedStatement.setDate(12, Date.valueOf(dateInStock));
             preparedStatement.setDate(13, Date.valueOf(dateOfSelling));
             preparedStatement.setString(14, sold);
             preparedStatement.setInt(15, stockNumber);
-            
+
             preparedStatement.executeUpdate();
             preparedStatement.close();
-            
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
-        }
-        
-        finally{
-            if(preparedStatement != null){
-                preparedStatement.close();    
+        } finally {
+            if (preparedStatement != null) {
+                preparedStatement.close();
             }
-            if(conn!=null){
+            if (conn != null) {
                 conn.close();
             }
         }
-     }
-     
-     
-             
-       
+    }
+
 }// End of Class

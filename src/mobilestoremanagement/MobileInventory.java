@@ -18,7 +18,7 @@ public class MobileInventory {
 
     // Observable list to store Mobile Inventory 
     private final ObservableList<Mobile> mobileInventory = FXCollections.observableArrayList();
-    
+
     /**
      * This method will return you MobileInventory Observable list.
      *
@@ -63,7 +63,7 @@ public class MobileInventory {
     public int getNumberOfMobileInStock() {
         int totalMobiles = 0;
         for (Mobile mobile : mobileInventory) {
-            if (mobile.getSellingPrice()==0.0) {
+            if (mobile.getSellingPrice() == 0.0) {
                 totalMobiles++;
             }
         }

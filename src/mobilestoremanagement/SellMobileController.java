@@ -63,8 +63,10 @@ public class SellMobileController implements Initializable, ControllerClass {
     private ImageView mobileImage;
     @FXML
     private TextField itemNumberTextField;
-    @FXML DatePicker dateOfSelling;
-    @FXML DatePicker dateInStock;
+    @FXML
+    DatePicker dateOfSelling;
+    @FXML
+    DatePicker dateInStock;
 
     @FXML
     private Button sellButton;
@@ -85,14 +87,13 @@ public class SellMobileController implements Initializable, ControllerClass {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
-    
-        public void initial(Mobile mobile, Users user) throws IOException{
-       this.mobile = mobile;
-       this.user = user;
-       
-       this.mobile = mobile;
-       
+
+    public void initial(Mobile mobile, Users user) throws IOException {
+        this.mobile = mobile;
+        this.user = user;
+
+        this.mobile = mobile;
+
         purchasePriceTextField.setText(Double.toString(mobile.getPurchasePrice()));
         makeTextField.setText(mobile.getMake());
         operatingSystemTextField.setText(mobile.getOperatingSystem());
@@ -107,23 +108,21 @@ public class SellMobileController implements Initializable, ControllerClass {
         dateInStock.setValue(mobile.getDateInStock());
         dateInStock.setDisable(true);
         dateOfSelling.setValue(LocalDate.now());
-         
-        try{
-            String imgLocation = ".\\src\\images\\"+mobile.getMobileImage().getName();
+
+        try {
+            String imgLocation = ".\\src\\images\\" + mobile.getMobileImage().getName();
             imageFile = new File(imgLocation);
             System.out.println(imgLocation);
             BufferedImage bufferedImage = ImageIO.read(imageFile);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             mobileImage.setImage(image);
-        }catch (IOException e){
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
         sellingPriceTextField.selectAll();
         sellingPriceTextField.requestFocus();
     }
-
-    
 
     /**
      * This method will sell the mobile This method will validate selling price
@@ -134,18 +133,17 @@ public class SellMobileController implements Initializable, ControllerClass {
      * @throws IOException
      */
     public void mobileSoldButtonPushed(ActionEvent event) throws IOException, SQLException {
-        
+
         try {
-      
+
             mobile.setSellingPrice(Double.parseDouble(sellingPriceTextField.getText()));
             mobile.setDateOfSelling(dateOfSelling.getValue());
             mobile.setSold("true");
             mobile.updateDataBase();
-            
-            
+
             System.out.println(mobile.getSold());
             insertSales(dateOfSelling.getValue(), mobile);
-            
+
             SceneChanger sc = new SceneChanger();
             sc.changeScenes(event, "MobileStoreManagement.fxml", "Mobile Store");
 
@@ -153,22 +151,22 @@ public class SellMobileController implements Initializable, ControllerClass {
             errorLabel.setText("Please enter valid price and positive numbers only");
         }
     }
-   
 
     /**
      * This method will avoid all things and close the scene and change it to
      * mobile store controller
+     *
      * @param event
      * @throws IOException
      */
     public void cancelButtonPushed(ActionEvent event) throws IOException, SQLException {
-         SceneChanger sc = new SceneChanger();
-         sc.changeScenes(event, "MobileStoreManagement.fxml", "Mobile Store");
+        SceneChanger sc = new SceneChanger();
+        sc.changeScenes(event, "MobileStoreManagement.fxml", "Mobile Store");
     }
 
     public void preloadData(Mobile mobile) {
         this.mobile = mobile;
-       
+
         purchasePriceTextField.setText(Double.toString(mobile.getPurchasePrice()));
         makeTextField.setText(mobile.getMake());
         operatingSystemTextField.setText(mobile.getOperatingSystem());
@@ -183,15 +181,15 @@ public class SellMobileController implements Initializable, ControllerClass {
         dateInStock.setValue(mobile.getDateInStock());
         dateInStock.setDisable(true);
         dateOfSelling.setValue(LocalDate.now());
-         
-        try{
-            String imgLocation = ".\\src\\images\\"+mobile.getMobileImage().getName();
+
+        try {
+            String imgLocation = ".\\src\\images\\" + mobile.getMobileImage().getName();
             imageFile = new File(imgLocation);
             System.out.println(imgLocation);
             BufferedImage bufferedImage = ImageIO.read(imageFile);
             Image image = SwingFXUtils.toFXImage(bufferedImage, null);
             mobileImage.setImage(image);
-        }catch (IOException e){
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
@@ -203,8 +201,8 @@ public class SellMobileController implements Initializable, ControllerClass {
     public void preloadDataUser(Users user) {
         this.user = user;
     }
-    
- public void insertSales(LocalDate dateOfSelling, Mobile mobile) throws SQLException {
+
+    public void insertSales(LocalDate dateOfSelling, Mobile mobile) throws SQLException {
         //validate the date is today or earlier
         if (dateOfSelling.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Date of selling cannot be in the future");
@@ -232,9 +230,8 @@ public class SellMobileController implements Initializable, ControllerClass {
             Date dw = Date.valueOf(dateOfSelling);
 
             //5.  bind the parameters
-            
             ps.setDouble(1, mobile.getPurchasePrice());
-          
+
             ps.setDouble(2, mobile.getSellingPrice());
             ps.setDate(3, dw);
 
@@ -251,13 +248,5 @@ public class SellMobileController implements Initializable, ControllerClass {
             }
         }
     }
-    
-    
-    
-     
-
-   
-    
-  
 
 } // End of Class

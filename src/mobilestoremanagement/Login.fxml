@@ -5,17 +5,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mobilestoremanagement.LoginController">
     <stylesheets>
         <URL value="@Mobilecss.css" />
     </stylesheets>
    <children>
-      <GridPane layoutX="154.0" layoutY="107.0" prefHeight="99.0" prefWidth="315.0">
+      <GridPane layoutX="98.0" layoutY="107.0" prefHeight="112.0" prefWidth="371.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="83.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="208.0" />
@@ -25,13 +28,24 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="UserID" />
-            <Label text="Password" GridPane.rowIndex="1" />
+            <Label text="User ID ">
+               <font>
+                  <Font size="27.0" />
+               </font></Label>
+            <Label text="Password" GridPane.rowIndex="1">
+               <font>
+                  <Font size="27.0" />
+               </font></Label>
             <TextField fx:id="userIDTextField" GridPane.columnIndex="1" />
             <PasswordField fx:id="pwField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button layoutX="274.0" layoutY="250.0" mnemonicParsing="false" onAction="#loginButtonPushed" prefHeight="48.0" prefWidth="113.0" text="LogIn" />
-      <Label fx:id="errMsgLabel" layoutX="154.0" layoutY="316.0" text="Label" />
+      <Button layoutX="241.0" layoutY="248.0" mnemonicParsing="false" onAction="#loginButtonPushed" prefHeight="39.0" prefWidth="208.0" text="LogIn" />
+      <Label fx:id="errMsgLabel" layoutX="154.0" layoutY="316.0" text="*Error" textFill="#eb1010" />
+      <ImageView fitHeight="91.0" fitWidth="387.0" layoutX="107.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@store.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

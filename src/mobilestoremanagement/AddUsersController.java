@@ -76,7 +76,7 @@ public class AddUsersController implements Initializable, ControllerClass {
     public void saveUserButtonPushed(ActionEvent event) {
         if (validPassword() || user != null) {
             try {
-                if (user != null) //we need to edit/update an existing volunteer
+                if (user != null) //we need to edit/update an existing user
                 {
                     updateUser();
                     user.updateUserInDB();
@@ -87,21 +87,21 @@ public class AddUsersController implements Initializable, ControllerClass {
                         }
                     }
 
-                } else //we need to create a new volunteer
+                } else //we need to create a new user
                 {
-                    if (imageFileChanged) //create a Volunteer with a custom image
+                    if (imageFileChanged) //create a User with a custom image
                     {
                         user = new Users(firstNameTextField.getText(), lastNameTextField.getText(),
                                 phoneTextField.getText(), birthday.getValue(), imageFile,
                                 adminCheckBox.isSelected(), pwField.getText());
-                    } else //create a Volunteer with a default image
+                    } else //create a user with a default image
                     {
                         user = new Users(firstNameTextField.getText(), lastNameTextField.getText(),
                                 phoneTextField.getText(), birthday.getValue(),
                                 pwField.getText(),
                                 adminCheckBox.isSelected());
                     }
-                    errMsgLabel.setText("");    //do not show errors if creating Volunteer was successful
+                    errMsgLabel.setText("");    //do not show errors if creating user was successful
                     user.insertIntoDB();
                 }
 
@@ -217,7 +217,7 @@ public class AddUsersController implements Initializable, ControllerClass {
     }
 
     /**
-     * This method will read from the GUI fields and update the volunteer object
+     * This method will read from the GUI fields and update the user object
      */
     public void updateUser() throws IOException {
         user.setAdmin(adminCheckBox.isSelected());
@@ -235,7 +235,7 @@ public class AddUsersController implements Initializable, ControllerClass {
 
     @Override
     public void preloadData(Mobile mobile) {
-  
+
     }
 
 }

@@ -50,12 +50,11 @@ import models.Users;
  *
  * @author Rutul
  */
-public class MobileStoreManagementController implements Initializable , ControllerClass {
+public class MobileStoreManagementController implements Initializable, ControllerClass {
 
-   private MobileInventory mobileInventory;
+    private MobileInventory mobileInventory;
     private Mobile mobile;
-     ObservableList<Mobile> mobiles = FXCollections.observableArrayList();
-    
+    ObservableList<Mobile> mobiles = FXCollections.observableArrayList();
 
 // adding Buttons
     @FXML
@@ -98,8 +97,6 @@ public class MobileStoreManagementController implements Initializable , Controll
     private Label errorLabel;
     private Users user;
 
- 
-
     /**
      * This method has all the dummy data for our store. And this method will
      * return dummy data
@@ -109,56 +106,56 @@ public class MobileStoreManagementController implements Initializable , Controll
      */
     public void getMobiles() throws IOException, SQLException {
         //mobileInventory = new MobileInventory();
-   
-       
+
         Connection conn = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        
-        try{
-            
+
+        try {
+
             conn = DriverManager.getConnection(ConnectionPassword.URL, ConnectionPassword.USERNAME, ConnectionPassword.PASSWORD);
-            
+
             //statement object 
             statement = conn.createStatement();
-            
+
             // create SQL query 
             resultSet = statement.executeQuery("SELECT*FROM mobiles");
-            
+
             // create mobile objects from each records             
-            while(resultSet.next()){
-   
-            Mobile newMobile = new Mobile(resultSet.getString("model"),resultSet.getString("color"),
-                                           resultSet.getString("make"),
-                                           resultSet.getString("operatingSystem"),
-                                           resultSet.getDouble("purchasePrice"));
-            
-            
-            newMobile.setRam(resultSet.getInt("ram"));
-            newMobile.setStorage(resultSet.getInt("storageCapacity"));
-            newMobile.setMobileIMEI(resultSet.getLong("imei"));
-            newMobile.setWebsite(resultSet.getString("website"));
-            newMobile.setStockNumber(resultSet.getInt("stockNumber"));
-            newMobile.setSold(resultSet.getString("sold"));
-            newMobile.setSellingPrice(resultSet.getDouble("sellingPrice"));
-            newMobile.setMobileImage( new File(resultSet.getString("imageFile")));
-            
-            mobiles.add(newMobile);
-           
-            //mobileInventory.addMobile(newMobile);
+            while (resultSet.next()) {
+
+                Mobile newMobile = new Mobile(resultSet.getString("model"), resultSet.getString("color"),
+                        resultSet.getString("make"),
+                        resultSet.getString("operatingSystem"),
+                        resultSet.getDouble("purchasePrice"));
+
+                newMobile.setRam(resultSet.getInt("ram"));
+                newMobile.setStorage(resultSet.getInt("storageCapacity"));
+                newMobile.setMobileIMEI(resultSet.getLong("imei"));
+                newMobile.setWebsite(resultSet.getString("website"));
+                newMobile.setStockNumber(resultSet.getInt("stockNumber"));
+                newMobile.setSold(resultSet.getString("sold"));
+                newMobile.setSellingPrice(resultSet.getDouble("sellingPrice"));
+                newMobile.setMobileImage(new File(resultSet.getString("imageFile")));
+
+                mobiles.add(newMobile);
+
+                //mobileInventory.addMobile(newMobile);
             }
             mobileStoreView.getItems().addAll(mobiles);
-            
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
-        }
-        finally {
-         if(conn != null)
-             conn.close();
-        if(statement != null)
-            statement.close();
-        if(resultSet != null)
-            resultSet.close();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (resultSet != null) {
+                resultSet.close();
+            }
         }
         updateInventoryLabels();
 
@@ -187,7 +184,6 @@ public class MobileStoreManagementController implements Initializable , Controll
         window.show();
     }
 
-
     /**
      * Initializes the controller class.
      *
@@ -196,13 +192,10 @@ public class MobileStoreManagementController implements Initializable , Controll
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
 
-        
         //sellMobile.disableProperty().bind(Bindings.isEmpty(mobileStoreView.getSelectionModel().getSelectedItems()));
         sellMobile.setDisable(true);
-      
-        
+
         try {
             makeColumn.setCellValueFactory(new PropertyValueFactory<>("make"));
             modelColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
@@ -210,10 +203,9 @@ public class MobileStoreManagementController implements Initializable , Controll
             osColumn.setCellValueFactory(new PropertyValueFactory<>("operatingSystem"));
             purchasePriceColumn.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
             sellingPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellingPrice"));
-            
-             getMobiles();
-          
-           
+
+            getMobiles();
+
         } catch (IOException ex) {
             Logger.getLogger(MobileStoreManagementController.class.getName()).log(Level.SEVERE, null, ex);
             errorLabel.setText(ex.getMessage());
@@ -221,15 +213,15 @@ public class MobileStoreManagementController implements Initializable , Controll
             Logger.getLogger(MobileStoreManagementController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void selectedMobile(){
-       
-        if(mobileStoreView.getSelectionModel().getSelectedItem().getSold().equals("false")){
-         System.out.println(mobileStoreView.getSelectionModel().getSelectedItem().getSold()); 
-        sellMobile.setDisable(false);
+
+    public void selectedMobile() {
+
+        if (mobileStoreView.getSelectionModel().getSelectedItem().getSold().equals("false")) {
+            System.out.println(mobileStoreView.getSelectionModel().getSelectedItem().getSold());
+            sellMobile.setDisable(false);
+        } else if (mobileStoreView.getSelectionModel().getSelectedItem().getSold().equals("true")) {
+            sellMobile.setDisable(true);
         }
-        else if(mobileStoreView.getSelectionModel().getSelectedItem().getSold().equals("true"))
-         sellMobile.setDisable(true);
     }
 
     public double getTotalSales() {
@@ -247,8 +239,8 @@ public class MobileStoreManagementController implements Initializable , Controll
         }
         return totalInvestment;
     }
-    
-     /**
+
+    /**
      * This method will return total number of IN stock mobiles
      *
      * @return
@@ -256,7 +248,7 @@ public class MobileStoreManagementController implements Initializable , Controll
     public int getNumberOfMobileInStock() {
         int totalMobiles = 0;
         for (Mobile mobile : mobiles) {
-            if (mobile.getSellingPrice()==0.0) {
+            if (mobile.getSellingPrice() == 0.0) {
                 totalMobiles++;
             }
         }
@@ -292,8 +284,7 @@ public class MobileStoreManagementController implements Initializable , Controll
         }
         return profit;
     }
-    
-    
+
     /**
      * This method will update all the labels and inventory information
      */
@@ -310,19 +301,19 @@ public class MobileStoreManagementController implements Initializable , Controll
      * @param event
      * @throws IOException
      */
-    public void sellMobileButtonPushed(ActionEvent event) throws IOException {        
+    public void sellMobileButtonPushed(ActionEvent event) throws IOException {
         SceneChanger sc = new SceneChanger();
         Mobile mobile = this.mobileStoreView.getSelectionModel().getSelectedItem();
         SellMobileController smc = new SellMobileController();
         sc.changeScenes(event, "sellMobile.fxml", "Sell this mobile", mobile, smc);
     }
-    
-     public void salesViewButtonPushed(ActionEvent event ) throws IOException{
+
+    public void salesViewButtonPushed(ActionEvent event) throws IOException {
         SceneChanger sc = new SceneChanger();
         sc.changeScenes(event, "Sales.fxml", "Sales");
-     }
-     
-     /**
+    }
+
+    /**
      * This method will close and exit the program.
      *
      * @param event
@@ -334,14 +325,12 @@ public class MobileStoreManagementController implements Initializable , Controll
 
     @Override
     public void preloadData(Mobile mobile) {
-       this.mobile = mobile;
+        this.mobile = mobile;
     }
 
     @Override
     public void preloadDataUser(Users user) {
         this.user = user;
     }
-    
-   
 
 }// End of Class
