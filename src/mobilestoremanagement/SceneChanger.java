@@ -44,6 +44,7 @@ public class SceneChanger {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         stage.setTitle(title);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
@@ -74,6 +75,7 @@ public class SceneChanger {
 
         stage.setTitle(title);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -93,6 +95,7 @@ public class SceneChanger {
 
         stage.setTitle(title);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

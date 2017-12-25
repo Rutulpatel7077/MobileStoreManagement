@@ -20,6 +20,12 @@ public class MobileStoreManagement extends Application {
 
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        
+        /**
+         * On your first start we need to add user into user table 
+         * so comment 22 line and uncomment 25 add an user and then you can use that.
+         */
+      //  Parent root = FXMLLoader.load(getClass().getResource("AllUsers.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("The Mobile Store");
         stage.setScene(scene);
