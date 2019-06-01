@@ -20,5 +20,5 @@ public class ConnectionPassword {
    
   public static String URL = "jdbc:mysql://localhost:3306/java?useSSL=false";
   public static String USERNAME = "root";
-  public  static String PASSWORD = "rutul7077";
+  public  static String PASSWORD = "";
 }
